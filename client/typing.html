@@ -1,14 +1,29 @@
 <head>
   <title>typing</title>
 </head>
-
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+  {{> content}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="content">
+  <div class="content">
+    {{> typing}}
+  </div>
+</template>
+
+<template name="typing">
+  <div class="typing" tabIndex="0">
+    <div class="segments">
+      {{#each segments}}
+        <div class="segment" style="width: {{width}}">
+          <div class="text">{{text}}</div>
+          {{#if answer.length}}
+            <div class="answer">{{answer}}</div>
+          {{else}}
+            <div class="answer">&nbsp;</div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </template>
