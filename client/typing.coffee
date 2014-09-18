@@ -1,19 +1,23 @@
 class Typing
   constructor: ->
+    do @reset
+    do @force_redraw
+
+  reset: ->
     @segments = do @get_segments
-    @answers = ('' for segment in @segments)
+    @entries = ('' for segment in @segments)
+    @answers = (REVERSE_TRANSLITERATIONS[segment] for segment in @segments)
     @length = 0
     for segment in @segments
       @length += segment.length
     @current_segment = 0
-    do @force_redraw
 
   force_redraw: ->
     data = {segments: []}
     for segment, i in @segments
       data.segments.push
-        text: segment
-        answer: @answers[i]
+        segment: segment
+        entry: @entries[i]
         width: (Math.floor 100*segment.length/@length) + '%'
     Session.set 'typing', data
 
@@ -23,11 +27,13 @@ class Typing
   advance: (char) ->
     if @current_segment + 1 < @segments.length
       @current_segment += 1
-    do @force_redraw
+    else
+      do @reset
 
   type_character: (char) ->
-    @answers[@current_segment] += char
-    do @force_redraw
+    @entries[@current_segment] += char
+    if @entries[@current_segment] == @answers[@current_segment]
+      do @advance
 
 
 typing = new Typing
@@ -41,8 +47,10 @@ Template.typing.events
   'fauxkeydown': (_, template, e) ->
     if e.which == 32
       do typing.advance
+      do typing.force_redraw
     else if 65 <= e.which < 91
       char = String.fromCharCode e.which
       if not e.shiftKey
         char = do char.toLowerCase
       typing.type_character char
+      do typing.force_redraw

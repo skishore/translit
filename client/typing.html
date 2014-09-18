@@ -17,9 +17,9 @@
       <div class="segments">
         {{#each segments}}
           <div class="segment" style="width: {{width}}">
-            <div class="text">{{text}}</div>
-            {{#if answer.length}}
-              <div class="answer">{{answer}}</div>
+            <div class="text">{{segment}}</div>
+            {{#if entry.length}}
+              <div class="answer">{{entry}}</div>
             {{else}}
               <div class="answer">&nbsp;</div>
             {{/if}}
