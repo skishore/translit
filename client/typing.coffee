@@ -1,18 +1,21 @@
 class Typing
   constructor: ->
-    segments = do @get_segments
-    length = 0
-    for segment in segments
-      length += segment.length
-    @segments = ({
-      text: segment
-      answer: ''
-      width: (Math.floor 100*segment.length/length) + '%'
-    } for segment in segments)
+    @segments = do @get_segments
+    @answers = ('' for segment in @segments)
+    @length = 0
+    for segment in @segments
+      @length += segment.length
     @current_segment = 0
+    do @force_redraw
 
   force_redraw: ->
-    Session.set 'typing_trigger', 1 - ((Session.get 'typing_trigger') or 0)
+    data = {segments: []}
+    for segment, i in @segments
+      data.segments.push
+        text: segment
+        answer: @answers[i]
+        width: (Math.floor 100*segment.length/@length) + '%'
+    Session.set 'typing', data
 
   get_segments: ->
     (Math.randelt Steps.ALPHABET for _ in [0...Math.randint 3, 6])
@@ -23,17 +26,15 @@ class Typing
     do @force_redraw
 
   type_character: (char) ->
-    @segments[@current_segment].answer += char
+    @answers[@current_segment] += char
     do @force_redraw
 
 
 typing = new Typing
 
 
-Template.typing.helpers
-  segments: ->
-    Session.get 'typing_trigger'
-    typing.segments
+Template.typing.data = ->
+  Session.get 'typing'
 
 
 Template.typing.events

@@ -13,17 +13,19 @@
 
 <template name="typing">
   <div class="typing">
-    <div class="segments">
-      {{#each segments}}
-        <div class="segment" style="width: {{width}}">
-          <div class="text">{{text}}</div>
-          {{#if answer.length}}
-            <div class="answer">{{answer}}</div>
-          {{else}}
-            <div class="answer">&nbsp;</div>
-          {{/if}}
-        </div>
-      {{/each}}
-    </div>
+    {{#with data}}
+      <div class="segments">
+        {{#each segments}}
+          <div class="segment" style="width: {{width}}">
+            <div class="text">{{text}}</div>
+            {{#if answer.length}}
+              <div class="answer">{{answer}}</div>
+            {{else}}
+              <div class="answer">&nbsp;</div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    {{/with}}
   </div>
 </template>
