@@ -10,45 +10,51 @@ body {
   > .typing {
     border: 1px dotted black;
     margin: 0 auto;
-    position: relative;
+    overflow: hidden;
 
     font-size: 48px;
     height: 160px;
     width: 480px;
 
-    > .segments {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+    > .typing-inner {
+      position: relative;
+      height: 100%;
+      width: 100%;
 
-      > .segment {
-        float: left;
+      > .segments {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
-        &.correct {
-          color: #0a0;
-        }
+        > .segment {
+          float: left;
 
-        > .answer {
-          font-size: 50%;
-
-          > .cursor, .text, .guide {
-            display: inline-block;
-            font-size: 100%;
+          &.correct {
+            color: #0a0;
           }
 
-          > .cursor {
-            background-color: #ccc;
-            color: #888;
+          > .answer {
+            font-size: 50%;
 
-            &.fixed-width {
-              width: 0.5em;
+            > .cursor, .text, .guide {
+              display: inline-block;
+              font-size: 100%;
             }
-          }
 
-          > .guide {
-            color: #ccc;
+            > .cursor {
+              background-color: #ccc;
+              color: #888;
+
+              &.fixed-width {
+                width: 0.5em;
+              }
+            }
+
+            > .guide {
+              color: #ccc;
+            }
           }
         }
       }

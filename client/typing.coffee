@@ -42,6 +42,13 @@ class Typing
   advance: (char) ->
     @i += 1
     if @i == @segments.length
+      segments = $('.typing-inner>.segments')
+      $('.typing-inner').prepend do segments.clone
+      segments.css 'top', '150%'
+      move('.typing-inner').set('margin-top', '-160px').end ->
+        do $('.typing-inner>.segments:first-child').remove
+        $('.typing-inner').attr('style', '')
+        $('.typing-inner>.segments').css 'top', '50%'
       do @reset
     true
 
