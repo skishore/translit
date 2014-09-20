@@ -17,12 +17,17 @@ class Typing
     for segment, i in @segments
       data.segments.push
         segment: segment
-        entry: @entries[i]
+        entry: @get_entry_data i
+        class: if @entries[i] == @answers[i] then 'correct' else undefined
         width: (Math.floor 100*segment.length/@length) + '%'
     Session.set 'typing', data
 
   get_segments: ->
     (Math.randelt Steps.ALPHABET for _ in [0...Math.randint 3, 6])
+
+  get_entry_data: (i) ->
+    text: @entries[i]
+    cursor: i == @current_segment
 
   advance: (char) ->
     if @current_segment + 1 < @segments.length
