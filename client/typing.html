@@ -29,8 +29,13 @@
 <template name="entry">
   <div class="answer">
     <div class="text">{{text}}</div><!--
- -->{{#if cursor}}<!--
-   --><div class="cursor">&nbsp;</div>
-    {{/if}}
+ -->{{#if show_cursor}}<!--
+   -->{{#if cursor.length}}<!--
+     --><div class="cursor">{{cursor}}</div><!--
+   -->{{else}}<!--
+     --><div class="fixed-width cursor">&nbsp;</div><!--
+   -->{{/if}}<!--
+ -->{{/if}}<!--
+ --><div class="guide">{{guide}}</div>
   </div>
 </template>

@@ -33,14 +33,22 @@ body {
         > .answer {
           font-size: 50%;
 
-          > .cursor, .text {
+          > .cursor, .text, .guide {
             display: inline-block;
             font-size: 100%;
           }
 
           > .cursor {
             background-color: #ccc;
-            width: 0.5em;
+            color: #888;
+
+            &.fixed-width {
+              width: 0.5em;
+            }
+          }
+
+          > .guide {
+            color: #ccc;
           }
         }
       }
