@@ -15,6 +15,9 @@ class Typing
     @i = 0
 
   force_redraw: ->
+    Session.set 'typing.current_line', do @get_data
+
+  get_data: ->
     data = {segments: []}
     for segment, i in @segments
       data.segments.push
@@ -22,7 +25,7 @@ class Typing
         entry: @get_entry_data i
         class: if @entries[i] == @answers[i] then 'correct' else undefined
         width: (Math.floor 100*segment.length/@length) + '%'
-    Session.set 'typing', data
+    data
 
   get_segments: ->
     (Math.randelt Steps.ALPHABET for _ in [0...Math.randint 3, 6])
@@ -42,13 +45,13 @@ class Typing
   advance: (char) ->
     @i += 1
     if @i == @segments.length
-      segments = $('.typing-inner>.segments')
-      $('.typing-inner').prepend do segments.clone
-      segments.css 'top', '150%'
+      Session.set 'typing.last_line', do @get_data
+      $('.segments:last-child').css 'top', '150%'
       move('.typing-inner').set('margin-top', '-160px').end ->
-        do $('.typing-inner>.segments:first-child').remove
-        $('.typing-inner').attr('style', '')
-        $('.typing-inner>.segments').css 'top', '50%'
+        Session.set 'typing.last_line', undefined
+        $('.typing-inner').attr 'style', ''
+        do $('.segments:first-child').empty
+        $('.segments:last-child').css 'top', '50%'
       do @reset
     true
 
@@ -68,8 +71,11 @@ class Typing
 typing = new Typing
 
 
-Template.typing.data = ->
-  Session.get 'typing'
+Template.typing.last_line = ->
+  Session.get 'typing.last_line'
+
+Template.typing.current_line = ->
+  Session.get 'typing.current_line'
 
 
 Template.typing.events

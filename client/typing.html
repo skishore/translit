@@ -14,17 +14,20 @@
 <template name="typing">
   <div class="typing">
     <div class="typing-inner">
-      {{#with data}}
-        <div class="segments">
-          {{#each segments}}
-            <div class="segment {{class}}" style="width: {{width}}">
-              <div class="text">{{segment}}</div>
-              {{> entry entry}}
-            </div>
-          {{/each}}
-        </div>
-      {{/with}}
+      {{> segments last_line}}
+      {{> segments current_line}}
     </div>
+  </div>
+</template>
+
+<template name="segments">
+  <div class="segments">
+    {{#each segments}}
+      <div class="segment {{class}}" style="width: {{width}}">
+        <div class="text">{{segment}}</div>
+        {{> entry entry}}
+      </div>
+    {{/each}}
   </div>
 </template>
 
