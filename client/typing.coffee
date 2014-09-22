@@ -5,7 +5,7 @@ class Typing
     do @force_redraw
 
   reset: ->
-    @segments = do @get_segments
+    @segments = ((do Steps.get_segment) for _ in [0...Math.randint 3, 6])
     @answers = (HindiToEnglish.unsafe segment for segment in @segments)
     @entries = ('' for segment in @segments)
     @guides = (@show_guides for segment in @segments)
@@ -26,9 +26,6 @@ class Typing
         class: if @entries[i] == @answers[i] then 'correct' else undefined
         width: (Math.floor 100*segment.length/@length) + '%'
     data
-
-  get_segments: ->
-    (Math.randelt Steps.ALPHABET for _ in [0...Math.randint 3, 6])
 
   get_entry_data: (i) ->
     cursor = undefined
@@ -80,12 +77,9 @@ Template.typing.current_line = ->
 
 Template.typing.events
   'fauxkeydown': (_, template, e) ->
-    if e.which == 32
-      if typing.type_character ' '
-        do typing.force_redraw
-    else if 65 <= e.which < 91
-      char = String.fromCharCode e.which
-      if not e.shiftKey
-        char = do char.toLowerCase
+    char = String.fromCharCode e.which
+    if not e.shiftKey
+      char = do char.toLowerCase
+    if ENGLISH[char] or char == ' '
       if typing.type_character char
         do typing.force_redraw

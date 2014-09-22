@@ -37,3 +37,6 @@ class @Steps
   @ALPHABET = @VOWELS.concat @CONSONANTS
   @ALL = @ALPHABET.concat @DIGITS
   assert (typeof @ALL) == 'object', "typeof(ALL) is #{typeof @ALL}"
+
+  @get_segment: ->
+    (Math.randelt @CONSONANTS) + SIGNS[Math.randelt @VOWELS]

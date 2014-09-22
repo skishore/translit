@@ -1,14 +1,10 @@
 class @EnglishToHindi extends BaseTransliterator
-  ENGLISH = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  ACCEPT = {}
-  ACCEPT[character] = true for character in ENGLISH
-
   constructor: (input) ->
     @last_was_consonant = false
     super input
 
   accept: (character) ->
-    ACCEPT[character]
+    ENGLISH[character]
 
   is_valid_prefix: (state) ->
     state == 'z' or state of TRANSLITERATIONS
