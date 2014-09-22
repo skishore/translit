@@ -6,7 +6,7 @@ class Typing
 
   reset: ->
     @segments = do @get_segments
-    @answers = (REVERSE_TRANSLITERATIONS[segment] for segment in @segments)
+    @answers = (HindiToEnglish.unsafe segment for segment in @segments)
     @entries = ('' for segment in @segments)
     @guides = (@show_guides for segment in @segments)
     @length = 0

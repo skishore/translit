@@ -46,3 +46,9 @@ class @BaseTransliterator
 
   pop_state: ->
     throw new Error 'pop_state is not implemented!'
+
+  @unsafe: (input) ->
+    result = new @ input
+    if result.error?
+      throw new Error result.error
+    result.output
