@@ -87,3 +87,5 @@
 for english, hindi of TRANSLITERATIONS
   assert hindi not of REVERSE_TRANSLITERATIONS
   REVERSE_TRANSLITERATIONS[hindi] = english
+
+@VIRAMA = '\u094D'

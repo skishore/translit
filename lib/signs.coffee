@@ -20,3 +20,8 @@
   'ं': 'ं'
   'ः': 'ः'
 }
+
+@REVERSE_SIGNS = {}
+for vowel, sign of SIGNS
+  assert sign not of REVERSE_SIGNS
+  REVERSE_SIGNS[sign] = vowel
