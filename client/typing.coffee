@@ -41,16 +41,12 @@ class Typing
 
   advance: (char) ->
     @i += 1
-    if @i == @segments.length
+    if do @complete
       Session.set 'typing.last_line', do @get_data
-      $('.segments:last-child').css 'top', '150%'
-      move('.typing-inner').set('margin-top', '-160px').end ->
-        Session.set 'typing.last_line', undefined
-        $('.typing-inner').attr 'style', ''
-        do $('.segments:first-child').empty
-        $('.segments:last-child').css 'top', '50%'
-      do @reset
     true
+
+  complete: ->
+    @i == @segments.length
 
   type_character: (char) ->
     if char != @answers[@i][@entries[@i].length]
@@ -67,9 +63,22 @@ class Typing
 
 typing = new Typing
 
+animate = ->
+  $('.segments:last-child').css 'top', '150%'
+  do typing.reset
+  do typing.force_redraw
+  move('.typing-inner').set('margin-top', '-160px').end ->
+    Session.set 'typing.last_line', undefined
+    $('.typing-inner').attr 'style', ''
+    do $('.segments:first-child').empty
+    $('.segments:last-child').css 'top', '50%'
+
 
 Template.typing.last_line = ->
-  Session.get 'typing.last_line'
+  data = Session.get 'typing.last_line'
+  if data?
+    Meteor.setTimeout animate, 0
+  data
 
 Template.typing.current_line = ->
   Session.get 'typing.current_line'
@@ -81,5 +90,5 @@ Template.typing.events
     if not e.shiftKey
       char = do char.toLowerCase
     if ENGLISH[char] or char == ' '
-      if typing.type_character char
+      if (not do typing.complete) and typing.type_character char
         do typing.force_redraw
