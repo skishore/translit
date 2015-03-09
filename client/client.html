@@ -7,8 +7,25 @@
 
 <template name="content">
   <div class="content">
-    {{> typing}}
+    {{> multiple_choice}}
   </div>
+</template>
+
+<template name="multiple_choice">
+  {{#with data}}
+    <div class="multiple-choice">
+      <div class="questions">
+        {{#each questions}}
+          <div class="text" style="left: {{left}}">{{text}}</div>
+        {{/each}}
+      </div>
+      <div class="answers">
+        {{#each answers}}
+          <div class="text" style="left: {{left}}; top: {{top}}">{{text}}</div>
+        {{/each}}
+      </div>
+    </div>
+  {{/with}}
 </template>
 
 <template name="typing">

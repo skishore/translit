@@ -7,7 +7,7 @@ body {
   margin-top: 16px;
   text-align: center;
 
-  > .typing {
+  > .typing, > .multiple-choice {
     border: 1px dotted black;
     margin: 0 auto;
     overflow: hidden;
@@ -15,7 +15,35 @@ body {
     font-size: 48px;
     height: 160px;
     width: 480px;
+  }
 
+  > .multiple-choice {
+    > .questions {
+      height: 1.5em;
+    }
+
+    > .answers {
+      font-size: 40%;
+      height: 3em;
+
+      .text {
+        transition: all 0.2s;
+      }
+    }
+
+    > .questions, .answers {
+      position: relative;
+      width: 100%;
+
+      > .text {
+        display: inline-block;
+        position: absolute;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  > .typing {
     > .typing-inner {
       position: relative;
       height: 100%;

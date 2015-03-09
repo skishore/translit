@@ -1,3 +1,3 @@
 Meteor.startup ->
   $('body').keydown (e) ->
-    $('.typing').trigger 'fauxkeydown', (e or window.event)
+    $('.multiple-choice').trigger 'fauxkeydown', (e or window.event)
