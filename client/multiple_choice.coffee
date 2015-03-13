@@ -13,10 +13,24 @@ class MultipleChoice
     do @force_redraw
 
   reset: ->
-    @questions = ((do Steps.get_segment) for _ in [0...4])
-    @permutation = [0...@questions.length]
+    n = 3
+    m = 4
+    @permutation = [0...m]
     shuffle @permutation
-    @answers = (HindiToEnglish.unsafe @questions[j] for j, _ in @permutation)
+
+    hindi = []
+    english = []
+    for _ in [0...m]
+      while true
+        new_hindi = do Steps.get_segment
+        new_english = HindiToEnglish.unsafe new_hindi
+        if (english.indexOf new_english) < 0
+          break
+      hindi.push new_hindi
+      english.push new_english
+
+    @questions = (hindi[i] for i in [0...n])
+    @answers = (english[j] for j in @permutation)
     @assignment = []
     do @force_redraw
 
@@ -27,29 +41,20 @@ class MultipleChoice
     data = {questions: [], answers: []}
     for question, i in @questions
       data.questions.push
+        class: if i >= @assignment.length then undefined else 'done'
         left: "#{(Math.floor 100*(2*i + 1)/(2*@questions.length))}%"
         text: question
     labels = 'ASDF'
     for answer, i in @answers
       j = @assignment.indexOf i
       p = if j < 0 then i else j
+      n = if j < 0 then @answers.length else @questions.length
       data.answers.push
-        left: "#{(Math.floor 100*(2*p + 1)/(2*@questions.length))}%"
-        top: if j < 0 then '2em' else '0em'
-        text: "#{labels[i]}: #{answer}"
+        class: if j < 0 then undefined else 'done'
+        left: "#{(Math.floor 100*(2*p + 1)/(2*n))}%"
+        label: labels[i]
+        text: answer
     data
-
-  get_entry_data: (i) ->
-    cursor = undefined
-    guide = if @guides[i] then @answers[i].slice @entries[i].length else ''
-    cursor = undefined
-    if i == @i
-      cursor = guide[0] or ''
-      guide = guide.slice 1
-    text: @entries[i]
-    cursor: cursor
-    show_cursor: cursor?
-    guide: guide
 
   complete: ->
     false

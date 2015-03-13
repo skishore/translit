@@ -16,12 +16,14 @@
     <div class="multiple-choice">
       <div class="questions">
         {{#each questions}}
-          <div class="text" style="left: {{left}}">{{text}}</div>
+          <div class="text {{class}}" style="left: {{left}}">{{text}}</div>
         {{/each}}
       </div>
       <div class="answers">
         {{#each answers}}
-          <div class="text" style="left: {{left}}; top: {{top}}">{{text}}</div>
+          <div class="text {{class}}" style="left: {{left}}">
+            {{label}}: {{text}}
+          </div>
         {{/each}}
       </div>
     </div>
