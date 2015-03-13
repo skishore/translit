@@ -39,4 +39,8 @@ class @Steps
   assert (typeof @ALL) == 'object', "typeof(ALL) is #{typeof @ALL}"
 
   @get_segment: ->
-    (Math.randelt @CONSONANTS) + SIGNS[Math.randelt @VOWELS]
+    while true
+      consonant = Math.randelt @CONSONANTS
+      vowel = SIGNS[Math.randelt @VOWELS]
+      if consonant not in ['ङ', 'ञ'] or vowel == ''
+        return consonant + vowel

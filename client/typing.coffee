@@ -22,9 +22,16 @@ class Typing
     for segment, i in @segments
       data.segments.push
         segment: segment
-        entry: @get_entry_data i
+        entry: @encode_entry_data @get_entry_data i
         class: if @entries[i] == @answers[i] then 'correct' else undefined
         width: (Math.floor 100*segment.length/@length) + '%'
+    data
+
+  encode_entry_data: (data) ->
+    if data.cursor?
+      data.cursor = HindiToEnglish.english_to_display data.cursor
+    data.guide = HindiToEnglish.english_to_display data.guide
+    data.text = HindiToEnglish.english_to_display data.text
     data
 
   get_entry_data: (i) ->
