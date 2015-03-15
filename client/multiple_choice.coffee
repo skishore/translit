@@ -53,7 +53,7 @@ class MultipleChoice
         class: if j < 0 then undefined else 'done'
         left: "#{(Math.floor 100*(2*p + 1)/(2*n))}%"
         label: labels[i]
-        text: answer
+        text: HindiToEnglish.english_to_display answer
     data
 
   complete: ->
