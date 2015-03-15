@@ -5,7 +5,7 @@ class @Dialog
 
   active: ->
     # Returns true if the dialog is still active.
-    assert false, "#{@constructor.name}.complete is not implemented!"
+    assert false, "#{@constructor.name}.active is not implemented!"
 
   get_data: ->
     # Returns the data needed to instantiate this dialog's Handlebars template.
@@ -30,7 +30,7 @@ class @DialogManager
 
   @redraw: ->
     Session.set 'dialog.current',
-      template: @_current.constructor.template
+      name: @_current.constructor.name
       height: @_current.constructor.height
       data: do @_current.get_data
 
@@ -62,16 +62,3 @@ Template.dialog.helpers {
   current: ->
     Session.get 'dialog.current'
 }
-
-
-Template.dialog.events
-  'fauxkeydown': (_, template, e) ->
-    char = String.fromCharCode e.which
-    if not e.shiftKey
-      char = do char.toLowerCase
-    if do current?.active and current.on_input char
-      Session.set 'dialog.current', do current.get_data
-
-
-Meteor.startup ->
-  DialogManager.instantiate 'HindiToEnglishTransliterationGame'

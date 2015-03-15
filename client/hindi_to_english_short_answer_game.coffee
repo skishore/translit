@@ -1,5 +1,5 @@
-class @HindiToEnglishTransliterationGame
-  @template = 'HindiToEnglishTransliterationGame'
+class @HindiToEnglishShortAnswerGame extends Dialog
+  DialogManager.register @
   @height = '140px'
 
   constructor: (show_guides) ->
@@ -11,8 +11,8 @@ class @HindiToEnglishTransliterationGame
     @guides = (show_guides for i in @hindi)
     @i = 0
 
-  complete: ->
-    @i == @hindi.length
+  active: ->
+    @i < @hindi.length
 
   get_data: ->
     data = {segments: []}
@@ -54,6 +54,3 @@ class @HindiToEnglishTransliterationGame
     if @entries[@i] == @english[@i]
       @i += 1
     true
-
-
-DialogManager.register HindiToEnglishTransliterationGame

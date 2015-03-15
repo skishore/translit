@@ -13,9 +13,7 @@
 </template>
 
 <template name="subdialog">
-  {{#if template}}
-    {{> Template.dynamic template="hindi" data=data}}
-  {{/if}}
+  {{> Template.dynamic template=name data=data}}
 </template>
 
 <template name="multiple_choice">
@@ -37,7 +35,7 @@
   {{/with}}
 </template>
 
-<template name="hindi">
+<template name="HindiToEnglishShortAnswerGame">
   <div class="typing">
     <div class="typing-inner">
       <div class="segments">
