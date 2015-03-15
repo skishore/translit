@@ -16,23 +16,21 @@
   {{> Template.dynamic template=name data=data}}
 </template>
 
-<template name="multiple_choice">
-  {{#with data}}
-    <div class="multiple-choice">
-      <div class="questions">
-        {{#each questions}}
-          <div class="text {{class}}" style="left: {{left}}">{{text}}</div>
-        {{/each}}
-      </div>
-      <div class="answers">
-        {{#each answers}}
-          <div class="text {{class}}" style="left: {{left}}">
-            {{label}}: {{text}}
-          </div>
-        {{/each}}
-      </div>
+<template name="HindiToEnglishMultipleChoiceGame">
+  <div class="multiple-choice">
+    <div class="questions">
+      {{#each questions}}
+        <div class="text {{class}}" style="left: {{left}}">{{text}}</div>
+      {{/each}}
     </div>
-  {{/with}}
+    <div class="answers">
+      {{#each answers}}
+        <div class="text {{class}}" style="left: {{left}}">
+          {{label}}: {{text}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
 </template>
 
 <template name="HindiToEnglishShortAnswerGame">

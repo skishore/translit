@@ -3,6 +3,10 @@ class @Dialog
   # @name will always be set to the class name by CoffeeScript.
   @height = '0px'
 
+  accepts_input: (char) ->
+    # Returns true if the dialog accepts the given input.
+    assert false, "#{@constructor.name}.accepts_input is not implemented!"
+
   active: ->
     # Returns true if the dialog is still active.
     assert false, "#{@constructor.name}.active is not implemented!"
@@ -25,8 +29,8 @@ class @DialogManager
     do @redraw
 
   @on_input: (char) ->
-    if do @_current?.active and @_current.on_input char
-      do @redraw
+    if do @_current?.active and @_current.accepts_input char
+      do @redraw if @_current.on_input char
 
   @redraw: ->
     Session.set 'dialog.current',

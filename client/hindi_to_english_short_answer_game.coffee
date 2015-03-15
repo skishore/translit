@@ -11,6 +11,9 @@ class @HindiToEnglishShortAnswerGame extends Dialog
     @guides = (show_guides for i in @hindi)
     @i = 0
 
+  accepts_input: (char) ->
+    ENGLISH[char] or char == ' '
+
   active: ->
     @i < @hindi.length
 
