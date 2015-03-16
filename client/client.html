@@ -2,24 +2,22 @@
   <title>Babel dialog tests</title>
 </head>
 <body>
-  {{> dialog}}
+  <div class="container">
+    {{> dialog}}
+  </div>
 </body>
 
 <template name="dialog">
-  <div class="dialog-wrapper">
-    <div class="dialog" style="height: {{current.height}};">
-      <div class="scroller">
-        {{> subdialog last}}
-        {{> subdialog current}}
-      </div>
+  <div class="dialog" style="height: {{current.height}};">
+    <div class="scroller">
+      {{> subdialog last}}
+      {{> subdialog current}}
     </div>
   </div>
 </template>
 
 <template name="subdialog">
-  <div class="subdialog">
-    {{> Template.dynamic template=name data=data}}
-  </div>
+  {{> Template.dynamic template=name data=data}}
 </template>
 
 <template name="HindiToEnglishMultipleChoiceGame">
