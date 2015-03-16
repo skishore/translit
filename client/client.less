@@ -17,77 +17,83 @@ body {
     height: 160px;
     width: 480px;
 
-    > * {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+    > .scroller {
+      position: relative;
+      height: 100%;
+      width: 100%;
 
-    > .multiple-choice-translit {
-      > .questions {
-        font-size: 80%;
-        height: 1.6em;
-      }
+      > .subdialog {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
 
-      > .answers {
-        font-size: 40%;
-        height: 4em;
-
-        .text {
-          transition: all 0.2s;
-          top: 3em;
-
-          &.done {
-            top: 0;
-          }
-        }
-      }
-
-      > .questions, .answers {
-        position: relative;
-        width: 100%;
-
-        > .text {
-          display: inline-block;
-          position: absolute;
-          transform: translateX(-50%);
-
-          &.done {
-            color: #888;
-          }
-        }
-      }
-    }
-
-    > .short-answer-translit {
-      > .segment {
-        float: left;
-
-        &.correct {
-          color: #0a0;
-        }
-
-        > .answer {
-          font-size: 50%;
-
-          > .cursor, .text, .guide {
-            display: inline-block;
-            font-size: 100%;
+        > .multiple-choice-translit {
+          > .questions {
+            font-size: 80%;
+            height: 1.6em;
           }
 
-          > .cursor {
-            background-color: #ccc;
-            color: #888;
+          > .answers {
+            font-size: 40%;
+            height: 4em;
 
-            &.fixed-width {
-              width: 0.5em;
+            .text {
+              transition: all 0.2s;
+              top: 3em;
+
+              &.done {
+                top: 0;
+              }
             }
           }
 
-          > .guide {
-            color: #ccc;
+          > .questions, .answers {
+            position: relative;
+            width: 100%;
+
+            > .text {
+              display: inline-block;
+              position: absolute;
+              transform: translateX(-50%);
+
+              &.done {
+                color: #888;
+              }
+            }
+          }
+        }
+
+        > .short-answer-translit {
+          > .segment {
+            float: left;
+
+            &.correct {
+              color: #0a0;
+            }
+
+            > .answer {
+              font-size: 50%;
+
+              > .cursor, .text, .guide {
+                display: inline-block;
+                font-size: 100%;
+              }
+
+              > .cursor {
+                background-color: #ccc;
+                color: #888;
+
+                &.fixed-width {
+                  width: 0.5em;
+                }
+              }
+
+              > .guide {
+                color: #ccc;
+              }
+            }
           }
         }
       }

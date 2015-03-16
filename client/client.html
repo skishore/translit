@@ -8,14 +8,18 @@
 <template name="dialog">
   <div class="dialog-wrapper">
     <div class="dialog" style="height: {{current.height}};">
-      {{> subdialog last}}
-      {{> subdialog current}}
+      <div class="scroller">
+        {{> subdialog last}}
+        {{> subdialog current}}
+      </div>
     </div>
   </div>
 </template>
 
 <template name="subdialog">
-  {{> Template.dynamic template=name data=data}}
+  <div class="subdialog">
+    {{> Template.dynamic template=name data=data}}
+  </div>
 </template>
 
 <template name="HindiToEnglishMultipleChoiceGame">

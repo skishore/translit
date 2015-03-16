@@ -25,14 +25,14 @@ class @DialogManager
   @_registry: {}
 
   @animate: =>
-    $('.dialog > *:last-child').css 'top', '150%'
+    $('.dialog > .scroller > .subdialog:last-child').css 'top', '150%'
     do @instantiate_random_dialog
     height = @_current.constructor.height
-    move('.dialog > *').set('margin-top', "-#{height}").end ->
+    move('.dialog > .scroller').set('margin-top', "-#{height}").end ->
       Session.set 'dialog.last', undefined
-      $('.dialog > *').attr 'style', ''
-      do $('.dialog > *:first-child').empty
-      $('.dialog > *:last-child').css 'top', '50%'
+      $('.dialog > .scroller').attr 'style', ''
+      do $('.dialog > .scroller > .subdialog:first-child').empty
+      $('.dialog > .scroller > .subdialog:last-child').css 'top', '50%'
 
   @instantiate: (dialog_name) ->
     @_current = new @_registry[dialog_name]
