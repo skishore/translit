@@ -5,7 +5,6 @@ class @HindiToEnglishShortAnswerGame extends Dialog
   constructor: (show_guides) ->
     @hindi = ((do Steps.get_segment) for i in [0...Math.randint 3, 6])
     @english = (HindiToEnglish.unsafe hindi for hindi in @hindi)
-    @length = _.reduce @hindi, ((sum, hindi) -> sum + hindi.length), 0
     # The user's current entry for each Hindi transliteration task.
     @entries = ('' for i in @hindi)
     @guides = (show_guides for i in @hindi)
@@ -24,7 +23,7 @@ class @HindiToEnglishShortAnswerGame extends Dialog
         segment: hindi
         entry: @_encode @_get_entry_data i
         class: if @entries[i] == @english[i] then 'correct' else undefined
-        width: (Math.floor 100*hindi.length/@length) + '%'
+        width: (Math.floor 100/@hindi.length) + '%'
     data
 
   _encode: (data) ->
