@@ -21,17 +21,19 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     @questions = (hindi[i] for i in [0...n])
     @answers = (english[j] for j in @permutation)
     @assignment = []
+    @classes = []
+    @_active = true
 
   accepts_input: (char) ->
-    ENGLISH[char] or char == ' ' or char == '\b'
+    ENGLISH[char] or char == '\b' or char == '\r'
 
-  active: -> true
+  active: -> @_active
 
   get_data: ->
     data = {questions: [], answers: []}
     for question, i in @questions
       data.questions.push
-        class: if i >= @assignment.length then undefined else 'done'
+        class: @classes[i]
         left: "#{(Math.floor 100*(2*i + 1)/(2*@questions.length))}%"
         text: question
     labels = 'ASDF'
@@ -40,7 +42,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
       p = if j < 0 then i else j
       n = if j < 0 then @answers.length else @questions.length
       data.answers.push
-        class: if j < 0 then undefined else 'done'
+        class: @classes[j]
         left: "#{(Math.floor 100*(2*p + 1)/(2*n))}%"
         label: labels[i]
         text: HindiToEnglish.english_to_display answer
@@ -48,9 +50,29 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
 
   on_input: (char) ->
     if char == '\b'
-      if @assignment.length > 0
-        do @assignment.pop
-        return true
+      return do @_on_backspace
+    else if char == '\r'
+      return do @_on_enter
+    @_on_typed_char char
+
+  _on_backspace: ->
+    if @assignment.length > 0
+      do @assignment.pop
+      do @classes.pop
+      return true
+    false
+
+  _on_enter: ->
+    if @assignment.length == @questions.length
+      @classes = ( \
+          (if @assignment[i] == @permutation[i] then 'correct' else 'wrong') \
+          for i in [0...@questions.length])
+      @_active = false
+      return true
+    false
+
+  _on_typed_char: (char) ->
+    if @assignment.length == @questions.length
       return false
     index = {a: 0, s: 1, d: 2, f: 3}[char]
     if not index?
@@ -59,4 +81,5 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     if assignment >= 0
       return false
     @assignment.push index
+    @classes.push 'done'
     true
