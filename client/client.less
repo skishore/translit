@@ -11,12 +11,21 @@ body {
     border: 1px dotted black;
     margin: 0 auto;
     overflow: hidden;
+    position: relative;
 
     font-size: 48px;
     height: 160px;
     width: 480px;
 
-    .multiple-choice-translit {
+    > * {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    > .multiple-choice-translit {
       > .questions {
         font-size: 80%;
         height: 1.6em;
@@ -53,44 +62,32 @@ body {
     }
 
     > .short-answer-translit {
-      position: relative;
-      height: 100%;
-      width: 100%;
+      > .segment {
+        float: left;
 
-      > .segments {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
+        &.correct {
+          color: #0a0;
+        }
 
-        > .segment {
-          float: left;
+        > .answer {
+          font-size: 50%;
 
-          &.correct {
-            color: #0a0;
+          > .cursor, .text, .guide {
+            display: inline-block;
+            font-size: 100%;
           }
 
-          > .answer {
-            font-size: 50%;
+          > .cursor {
+            background-color: #ccc;
+            color: #888;
 
-            > .cursor, .text, .guide {
-              display: inline-block;
-              font-size: 100%;
+            &.fixed-width {
+              width: 0.5em;
             }
+          }
 
-            > .cursor {
-              background-color: #ccc;
-              color: #888;
-
-              &.fixed-width {
-                width: 0.5em;
-              }
-            }
-
-            > .guide {
-              color: #ccc;
-            }
+          > .guide {
+            color: #ccc;
           }
         }
       }

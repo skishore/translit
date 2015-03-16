@@ -1,5 +1,5 @@
 <head>
-  <title>typing</title>
+  <title>Babel dialog tests</title>
 </head>
 <body>
   {{> dialog}}
@@ -37,14 +37,12 @@
 
 <template name="HindiToEnglishShortAnswerGame">
   <div class="short-answer-translit">
-    <div class="segments">
-      {{#each segments}}
-        <div class="segment {{class}}" style="width: {{width}}">
-          <div class="text">{{segment}}</div>
-          {{> entry entry}}
-        </div>
-      {{/each}}
-    </div>
+    {{#each segments}}
+      <div class="segment {{class}}" style="width: {{width}}">
+        <div class="text">{{segment}}</div>
+        {{> entry entry}}
+      </div>
+    {{/each}}
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 Meteor.startup ->
-  DialogManager.instantiate 'HindiToEnglishShortAnswerGame'
-  #DialogManager.instantiate 'HindiToEnglishMultipleChoiceGame'
+  #DialogManager.instantiate 'HindiToEnglishShortAnswerGame'
+  DialogManager.instantiate 'HindiToEnglishMultipleChoiceGame'
 
   $('body').keydown (e) ->
     e = e or window.event
