@@ -3,11 +3,11 @@ body {
   padding: 0;
 }
 
-.content {
+.dialog-wrapper {
   margin-top: 16px;
   text-align: center;
 
-  > .typing, > .multiple-choice {
+  > .dialog {
     border: 1px dotted black;
     margin: 0 auto;
     overflow: hidden;
@@ -15,46 +15,44 @@ body {
     font-size: 48px;
     height: 160px;
     width: 480px;
-  }
 
-  > .multiple-choice {
-    > .questions {
-      font-size: 80%;
-      height: 1.6em;
-    }
+    .multiple-choice-translit {
+      > .questions {
+        font-size: 80%;
+        height: 1.6em;
+      }
 
-    > .answers {
-      font-size: 40%;
-      height: 4em;
+      > .answers {
+        font-size: 40%;
+        height: 4em;
 
-      .text {
-        transition: all 0.2s;
-        top: 3em;
+        .text {
+          transition: all 0.2s;
+          top: 3em;
 
-        &.done {
-          top: 0;
+          &.done {
+            top: 0;
+          }
+        }
+      }
+
+      > .questions, .answers {
+        position: relative;
+        width: 100%;
+
+        > .text {
+          display: inline-block;
+          position: absolute;
+          transform: translateX(-50%);
+
+          &.done {
+            color: #888;
+          }
         }
       }
     }
 
-    > .questions, .answers {
-      position: relative;
-      width: 100%;
-
-      > .text {
-        display: inline-block;
-        position: absolute;
-        transform: translateX(-50%);
-
-        &.done {
-          color: #888;
-        }
-      }
-    }
-  }
-
-  > .typing {
-    > .typing-inner {
+    > .short-answer-translit {
       position: relative;
       height: 100%;
       width: 100%;

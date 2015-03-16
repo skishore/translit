@@ -1,6 +1,6 @@
 class @HindiToEnglishShortAnswerGame extends Dialog
   DialogManager.register @
-  @height = '140px'
+  @height = '160px'
 
   constructor: (show_guides) ->
     @hindi = ((do Steps.get_segment) for i in [0...Math.randint 3, 6])

@@ -6,9 +6,11 @@
 </body>
 
 <template name="dialog">
-  <div class="content">
-    {{> subdialog last}}
-    {{> subdialog current}}
+  <div class="dialog-wrapper">
+    <div class="dialog" style="height: {{current.height}};">
+      {{> subdialog last}}
+      {{> subdialog current}}
+    </div>
   </div>
 </template>
 
@@ -17,7 +19,7 @@
 </template>
 
 <template name="HindiToEnglishMultipleChoiceGame">
-  <div class="multiple-choice">
+  <div class="multiple-choice-translit">
     <div class="questions">
       {{#each questions}}
         <div class="text {{class}}" style="left: {{left}}">{{text}}</div>
@@ -34,16 +36,14 @@
 </template>
 
 <template name="HindiToEnglishShortAnswerGame">
-  <div class="typing">
-    <div class="typing-inner">
-      <div class="segments">
-        {{#each segments}}
-          <div class="segment {{class}}" style="width: {{width}}">
-            <div class="text">{{segment}}</div>
-            {{> entry entry}}
-          </div>
-        {{/each}}
-      </div>
+  <div class="short-answer-translit">
+    <div class="segments">
+      {{#each segments}}
+        <div class="segment {{class}}" style="width: {{width}}">
+          <div class="text">{{segment}}</div>
+          {{> entry entry}}
+        </div>
+      {{/each}}
     </div>
   </div>
 </template>
