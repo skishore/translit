@@ -3,7 +3,9 @@ class @HindiToEnglishShortAnswerGame extends Dialog
   @height = '160px'
 
   constructor: (show_guides) ->
-    @hindi = ((do Steps.get_segment) for i in [0...Math.randint 3, 6])
+    n = Math.randint 3, 6
+    n = 1
+    @hindi = ((do Steps.get_segment) for i in [0...n])
     @english = (HindiToEnglish.unsafe hindi for hindi in @hindi)
     @length = _.reduce @hindi, ((sum, hindi) -> sum + hindi.length), 0
     # The user's current entry for each Hindi transliteration task.

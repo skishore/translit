@@ -24,16 +24,31 @@ class @DialogManager
   @_current: null
   @_registry: {}
 
+  @animate: =>
+    $('.dialog > *:last-child').css 'top', '150%'
+    do @instantiate_random_dialog
+    height = @_current.constructor.height
+    move('.dialog > *').set('margin-top', "-#{height}").end ->
+      Session.set 'dialog.last', undefined
+      $('.dialog > *').attr 'style', ''
+      do $('.dialog > *:first-child').empty
+      $('.dialog > *:last-child').css 'top', '50%'
+
   @instantiate: (dialog_name) ->
     @_current = new @_registry[dialog_name]
-    do @redraw
+    @redraw 'current'
+
+  @instantiate_random_dialog: ->
+    @instantiate @_current.constructor.name
 
   @on_input: (char) ->
     if do @_current?.active and @_current.accepts_input char
-      do @redraw if @_current.on_input char
+      if @_current.on_input char
+        @redraw (if do @_current.active then 'current' else 'last')
 
-  @redraw: ->
-    Session.set 'dialog.current',
+
+  @redraw: (target) ->
+    Session.set "dialog.#{target}",
       name: @_current.constructor.name
       height: @_current.constructor.height
       data: do @_current.get_data
@@ -45,23 +60,11 @@ class @DialogManager
     @_registry[dialog_name] = dialog_subclass
 
 
-# TODO(skishore): Make this function dialog-type independent.
-animate = ->
-  $('.segments:last-child').css 'top', '150%'
-  do typing.reset
-  do typing.force_redraw
-  move('.typing-inner').set('margin-top', '-160px').end ->
-    Session.set 'typing.last_line', undefined
-    $('.typing-inner').attr 'style', ''
-    do $('.segments:first-child').empty
-    $('.segments:last-child').css 'top', '50%'
-
-
 Template.dialog.helpers {
   last: ->
     data = Session.get 'dialog.last'
     if data?
-      Meteor.setTimeout animate, 0
+      Meteor.setTimeout DialogManager.animate, 0
     data
   current: ->
     Session.get 'dialog.current'
