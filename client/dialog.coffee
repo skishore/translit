@@ -50,15 +50,14 @@ class @DialogManager
 
   @redraw: (target) ->
     Session.set "dialog.#{target}",
-      name: @_current.constructor.name
+      name: @_current.constructor.template
       height: @_current.constructor.height
       data: do @_current.get_data
 
-  @register: (dialog_subclass) ->
-    dialog_name = dialog_subclass.name
-    assert dialog_name.length > 0, 'Tried to register empty name'
-    assert dialog_name not of @_registry, "Duplicate dialog: #{dialog_name}"
-    @_registry[dialog_name] = dialog_subclass
+  @register: (dialog_subclass, name) ->
+    assert name.length > 0, 'Tried to register empty name'
+    assert name not of @_registry, "Duplicate dialog: #{name}"
+    @_registry[name] = dialog_subclass
 
 
 Template.dialog.helpers {

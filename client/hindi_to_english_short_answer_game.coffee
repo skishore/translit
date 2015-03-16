@@ -1,5 +1,6 @@
 class @HindiToEnglishShortAnswerGame extends Dialog
-  DialogManager.register @
+  DialogManager.register @, 'short_answer_translit'
+  @template = 'short_answer_translit'
   @height = '160px'
 
   constructor: (show_guides) ->
