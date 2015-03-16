@@ -1,6 +1,6 @@
 class HindiToEnglishMultipleChoiceGame extends Dialog
   DialogManager.register @
-  @height: '160px'
+  @height: '180px'
 
   constructor: ->
     n = 3

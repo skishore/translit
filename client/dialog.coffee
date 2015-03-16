@@ -40,7 +40,7 @@ class @DialogManager
     @redraw 'current'
 
   @instantiate_random_dialog: ->
-    @instantiate @_current.constructor.name
+    @instantiate _.sample _.keys @_registry
 
   @on_input: (char) ->
     if do @_current?.active and @_current.accepts_input char
