@@ -28,7 +28,8 @@ class @DialogManager
     $('.dialog > .scroller > *:last-child').css 'top', '150%'
     do @instantiate_random_dialog
     height = @_current.constructor.height
-    move('.dialog > .scroller').set('margin-top', "-#{height}").end ->
+    move('.dialog > .scroller').set('margin-top', "-#{height}")
+                               .duration('0.4s').end ->
       $('.dialog > .scroller').attr 'style', ''
       do $('.dialog > .scroller > *:first-child').empty
       $('.dialog > .scroller > *:last-child').css 'top', '50%'
