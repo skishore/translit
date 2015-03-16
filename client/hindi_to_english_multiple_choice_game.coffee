@@ -65,7 +65,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
   _on_enter: ->
     if @assignment.length == @questions.length
       @classes = ( \
-          (if @assignment[i] == @permutation[i] then 'correct' else 'wrong') \
+          (if @permutation[@assignment[i]] == i then 'correct' else 'wrong') \
           for i in [0...@questions.length])
       @_active = false
       return true
