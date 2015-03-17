@@ -9,6 +9,7 @@ class @HindiToEnglishShortAnswerGame extends Dialog
     # The user's current entry for each Hindi transliteration task.
     @entries = ('' for i in @hindi)
     @guides = (show_guides for i in @hindi)
+    @mistake = undefined
     @i = 0
 
   accepts_input: (char) ->
@@ -23,7 +24,8 @@ class @HindiToEnglishShortAnswerGame extends Dialog
       data.segments.push
         segment: hindi
         entry: @_encode @_get_entry_data i
-        class: if @entries[i] == @english[i] then 'correct' else undefined
+        class: if i == @mistake then 'wrong' \
+               else if @entries[i] == @english[i] then 'correct'
         width: (Math.floor 100/@hindi.length) + '%'
     data
 
@@ -52,8 +54,10 @@ class @HindiToEnglishShortAnswerGame extends Dialog
         return false
       @entries[@i] = ''
       @guides[@i] = true
+      @mistake = @i
       return true
     @entries[@i] += char
+    @mistake = undefined
     if @entries[@i] == @english[@i]
       @i += 1
     true
