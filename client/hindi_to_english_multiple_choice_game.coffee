@@ -59,7 +59,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
   _on_backspace: ->
     index = -1
     for i in [0...@questions.length]
-      if @classes[i] == 'done'
+      if @assignment[i]? and @classes[i] != 'correct'
         index = i
     if index < 0
       return false
@@ -71,13 +71,13 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     mistake = false
     correct = false
     for i in [0...@questions.length]
-      if @classes[i] == 'done'
+      if @assignment[i]? and @classes[i] != 'correct'
         if @permutation[@assignment[i]] == i
           @classes[i] = 'correct'
           correct = true
         else
           @assignment[i] = undefined
-          @classes[i] = undefined
+          @classes[i] = 'wrong'
           mistake = true
     @_active = not _.all (cls == 'correct' for cls in @classes)
     correct or mistake
@@ -91,7 +91,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
       return false
     index = -1
     for i in (do [0...@questions.length].reverse)
-      if not @classes[i]?
+      if not @assignment[i]? and @classes[i] != 'correct'
         index = i
     if index < 0
       return false
