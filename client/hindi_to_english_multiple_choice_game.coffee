@@ -1,7 +1,7 @@
 class HindiToEnglishMultipleChoiceGame extends Dialog
   DialogManager.register @, 'multiple_choice_translit'
   @template = 'multiple_choice_translit'
-  @height: '180px'
+  @height: '3.6em'
 
   constructor: ->
     n = 3

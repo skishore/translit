@@ -1,7 +1,7 @@
 class @HindiToEnglishShortAnswerGame extends Dialog
   DialogManager.register @, 'short_answer_translit'
   @template = 'short_answer_translit'
-  @height = '160px'
+  @height = '3.2em'
 
   constructor: (show_guides) ->
     @hindi = ((do Steps.get_segment) for i in [0...Math.randint 3, 6])
