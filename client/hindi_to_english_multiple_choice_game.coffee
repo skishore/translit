@@ -21,8 +21,8 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
 
     @questions = (hindi[i] for i in [0...n])
     @answers = (english[j] for j in @permutation)
-    @assignment = []
-    @classes = []
+    @assignment = (undefined for i in [0...n])
+    @classes = (undefined for i in [0...n])
     @_active = true
 
   accepts_input: (char) ->
@@ -57,30 +57,44 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     @_on_typed_char char
 
   _on_backspace: ->
-    if @assignment.length > 0
-      do @assignment.pop
-      do @classes.pop
-      return true
-    false
+    index = -1
+    for i in [0...@questions.length]
+      if @classes[i] == 'done'
+        index = i
+    if index < 0
+      return false
+    @assignment[index] = undefined
+    @classes[index] = undefined
+    true
 
   _on_enter: ->
-    if @assignment.length == @questions.length
-      @classes = ( \
-          (if @permutation[@assignment[i]] == i then 'correct' else 'wrong') \
-          for i in [0...@questions.length])
-      @_active = false
-      return true
-    false
+    mistake = false
+    correct = false
+    for i in [0...@questions.length]
+      if @classes[i] == 'done'
+        if @permutation[@assignment[i]] == i
+          @classes[i] = 'correct'
+          correct = true
+        else
+          @assignment[i] = undefined
+          @classes[i] = undefined
+          mistake = true
+    @_active = not _.all (cls == 'correct' for cls in @classes)
+    correct or mistake
 
   _on_typed_char: (char) ->
-    if @assignment.length == @questions.length
+    answer = {a: 0, s: 1, d: 2, f: 3}[char]
+    if not answer?
       return false
-    index = {a: 0, s: 1, d: 2, f: 3}[char]
-    if not index?
-      return false
-    assignment = @assignment.indexOf index
+    assignment = @assignment.indexOf answer
     if assignment >= 0
       return false
-    @assignment.push index
-    @classes.push 'done'
+    index = -1
+    for i in (do [0...@questions.length].reverse)
+      if not @classes[i]?
+        index = i
+    if index < 0
+      return false
+    @assignment[index] = answer
+    @classes[index] = 'done'
     true
