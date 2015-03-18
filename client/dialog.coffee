@@ -40,8 +40,7 @@ class @DialogManager
     @redraw 'current'
 
   @instantiate_random_dialog: ->
-    #@instantiate _.sample _.keys @_registry
-    @instantiate 'reverse_translit'
+    @instantiate _.sample _.keys @_registry
 
   @on_input: (char) ->
     if do @_current?.active and @_current.accepts_input char

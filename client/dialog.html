@@ -30,19 +30,6 @@
   </div>
 </template>
 
-<template name="reverse_translit">
-  <div class="reverse-translit">
-    <div class="question">{{question}}</div>
-    <div class="entry">{{entry}}</div>
-    <div class="answers">
-      {{#each answers}}
-        <div class="text {{class}}" style="left: {{left}}">{{text}}</div>
-      {{/each}}
-    </div>
-  </div>
-</template>
-
-
 <template name="short_answer_translit">
   <div class="short-answer-translit">
     {{#each segments}}
