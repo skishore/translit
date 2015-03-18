@@ -1,4 +1,6 @@
-@TRANSLITERATIONS = {
+@semantics = @semantics or {}
+
+semantics.TRANSLITERATIONS = {
   # Vowels.
   'अ': 'a'
   'आ': 'A'
@@ -82,5 +84,3 @@
   '।': '|'
   '॥': '||'
 }
-
-@VIRAMA = '\u094D'

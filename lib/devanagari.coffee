@@ -1,16 +1,7 @@
-class @Steps
-  @VOWELS = [
-    'अ',
-    'आ',
-    'इ',
-    'ई',
-    'उ',
-    'ऊ',
-    'ए',
-    'ऐ',
-    'ओ',
-    'औ',
-  ]
+@semantics = @semantics or {}
+
+class semantics.Devanagari
+  @VOWELS = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ए', 'ऐ', 'ओ', 'औ']
   @CONSONANT_ROWS = [
     ['क', 'ख', 'ग', 'घ', 'ङ'],
     ['च', 'छ', 'ज', 'झ', 'ञ'],
@@ -20,18 +11,9 @@ class @Steps
     ['य', 'र', 'ल', 'व'],
     ['श', 'ष', 'स', 'ह'],
   ]
-  @DIGITS = [
-    '०',
-    '१',
-    '२',
-    '३',
-    '४',
-    '५',
-    '६',
-    '७',
-    '८',
-    '९',
-  ]
+  @DIGITS = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९']
+
+  @VIRAMA = '\u094D'
 
   @CONSONANTS = [].concat.apply [], @CONSONANT_ROWS
   @ALPHABET = @VOWELS.concat @CONSONANTS
@@ -41,6 +23,6 @@ class @Steps
   @get_segment: ->
     while true
       consonant = Math.randelt @CONSONANTS
-      vowel = SIGNS[Math.randelt @VOWELS]
+      vowel = semantics.SIGNS[Math.randelt @VOWELS]
       if consonant not in ['ङ', 'ञ'] or vowel == ''
         return consonant + vowel

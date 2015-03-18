@@ -4,8 +4,9 @@ class @HindiToEnglishShortAnswerGame extends Dialog
   @height = '3.2em'
 
   constructor: (show_guides) ->
-    @hindi = ((do Steps.get_segment) for i in [0...Math.randint 3, 6])
-    @english = (HindiToEnglish.unsafe hindi for hindi in @hindi)
+    n = Math.randint 2, 5
+    @hindi = ((do semantics.Devanagari.get_segment) for i in [0...n])
+    @english = (semantics.HindiToEnglish.unsafe hindi for hindi in @hindi)
     # The user's current entry for each Hindi transliteration task.
     @entries = ('' for i in @hindi)
     @guides = (show_guides for i in @hindi)
@@ -13,7 +14,7 @@ class @HindiToEnglishShortAnswerGame extends Dialog
     @i = 0
 
   accepts_input: (char) ->
-    ENGLISH[char] or char == ' '
+    semantics.ENGLISH[char] or char == ' '
 
   active: ->
     @i < @hindi.length
@@ -31,9 +32,9 @@ class @HindiToEnglishShortAnswerGame extends Dialog
 
   _encode: (data) ->
     if data.cursor?
-      data.cursor = HindiToEnglish.english_to_display data.cursor
-    data.guide = HindiToEnglish.english_to_display data.guide
-    data.text = HindiToEnglish.english_to_display data.text
+      data.cursor = semantics.HindiToEnglish.english_to_display data.cursor
+    data.guide = semantics.HindiToEnglish.english_to_display data.guide
+    data.text = semantics.HindiToEnglish.english_to_display data.text
     data
 
   _get_entry_data: (i) ->

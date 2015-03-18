@@ -12,8 +12,8 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     english = []
     for i in [0...m]
       while true
-        new_hindi = do Steps.get_segment
-        new_english = HindiToEnglish.unsafe new_hindi
+        new_hindi = do semantics.Devanagari.get_segment
+        new_english = semantics.HindiToEnglish.unsafe new_hindi
         if (english.indexOf new_english) < 0
           break
       hindi.push new_hindi
@@ -26,7 +26,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
     @_active = true
 
   accepts_input: (char) ->
-    ENGLISH[char] or char == '\b' or char == '\r'
+    semantics.ENGLISH[char] or char == '\b' or char == '\r'
 
   active: -> @_active
 
@@ -46,7 +46,7 @@ class HindiToEnglishMultipleChoiceGame extends Dialog
         class: @classes[j]
         left: "#{(Math.floor 100*(2*p + 1)/(2*n))}%"
         label: labels[i]
-        text: HindiToEnglish.english_to_display answer
+        text: semantics.HindiToEnglish.english_to_display answer
     data
 
   on_input: (char) ->
